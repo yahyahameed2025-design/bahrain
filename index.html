@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عقد اتفاقية شركة دليل ان | Dalil-In Agreement</title>
+    <meta name="description" content="نظام استخراج وتوليد عقد شروط الاتفاقية وملحق خدمات التسويق لشركة دليل ان كملف PDF وملف Word (.docx)">
+    
+    <!-- CSS & Fonts -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JS Libraries (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-file-contract"></i>
+                </div>
+                <div class="brand-title">
+                    <h1>عقد شروط الاتفاقية - شركة دليل ان</h1>
+                    <span>Dalil-In Company Agreement & Marketing Addendum Generator</span>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge badge-warning">
+                    <i class="fa-solid fa-images"></i> 5 صور للعقد الواحد
+                </span>
+                <span class="badge badge-danger" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
+                    <i class="fa-solid fa-file-pdf"></i> تصدير PDF
+                </span>
+                <span class="badge badge-primary">
+                    <i class="fa-solid fa-file-word"></i> تصدير Word (.docx)
+                </span>
+            </div>
+        </header>
+
+        <!-- Main Banner & Action Bar -->
+        <div class="card-box" style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(19,27,46,0.9), rgba(15,23,42,0.95)); border-color: rgba(16,185,129,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <h2 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--primary);">
+                        <i class="fa-solid fa-file-signature"></i> اتفاقية شركة دليل ان (داو - دليل ان)
+                    </h2>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+                        تجميع واستخراج بيانات حتى 5 صور في عقد واحد مع إمكانية التنزيل بصيغتي **PDF** أو **Word**.
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" id="btnDownloadMasterPdf" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">
+                        <i class="fa-solid fa-file-pdf"></i> تنزيل العقد المكتمل (PDF)
+                    </button>
+                    <button class="btn btn-primary" id="btnDownloadMasterDocx">
+                        <i class="fa-solid fa-file-word"></i> تنزيل العقد المكتمل (Word)
+                    </button>
+                    <button class="btn btn-outline" id="btnDownloadBlankPdf" style="border-color: #ef4444; color: #ef4444;">
+                        <i class="fa-solid fa-file-pdf"></i> نموذج فارغ (PDF)
+                    </button>
+                    <button class="btn btn-outline" id="btnDownloadBlankDocx" style="border-color: var(--primary); color: var(--primary);">
+                        <i class="fa-solid fa-file-word"></i> نموذج فارغ (Word)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Upload Images -->
+        <section class="hero-section" style="grid-template-columns: 1fr 1fr;">
+            
+            <!-- Upload Dropzone Card -->
+            <div class="card-box">
+                <div class="card-title">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>رفع مستندات العقد (حتى 5 صور للعقد الواحد)</span>
+                </div>
+                
+                <div class="dropzone" id="dropzone">
+                    <div class="dropzone-icon">
+                        <i class="fa-solid fa-images"></i>
+                    </div>
+                    <div class="dropzone-text">
+                        <h3>اسحب الصور هنا أو اضغط لاختيار مستندات العقد</h3>
+                        <p>ارفع الهوية، السجل التجاري، بيانات الآيبان، أو إشعار العقد (حتى 5 صور)</p>
+                    </div>
+                    <div class="limit-counter" id="imagesCountText">
+                        0 من 5 صور مرفوعة
+                    </div>
+                    <input type="file" id="fileInput" class="file-input" multiple accept="image/*">
+                </div>
+
+                <!-- Quick Demo Buttons -->
+                <div class="demo-bar">
+                    <div class="demo-title">
+                        <i class="fa-solid fa-vial"></i> تجربة سريعة (تحميل صور عينة لاتفاقية دليل ان):
+                    </div>
+                    <div class="demo-buttons">
+                        <button class="btn-demo" id="btnDemo1">
+                            <i class="fa-solid fa-address-card"></i> صورة 1: هوية وسجل المشترك
+                        </button>
+                        <button class="btn-demo" id="btnDemo2">
+                            <i class="fa-solid fa-building-columns"></i> صورة 2: بيانات الحساب والنسبة
+                        </button>
+                        <button class="btn-demo" id="btnDemo3">
+                            <i class="fa-solid fa-credit-card"></i> صورة 3: ملحق طرق الدفع
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uploaded Images Gallery Overview -->
+            <div class="card-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                    <div class="card-title" style="margin-bottom: 0;">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>معرض المستندات المرفوعة للعقد</span>
+                    </div>
+                    <button class="btn btn-outline btn-sm" id="btnClearAll">
+                        <i class="fa-solid fa-trash-can"></i> مسح الصور
+                    </button>
+                </div>
+
+                <!-- Gallery List -->
+                <div id="imagesGallery" class="images-gallery">
+                    <div class="empty-state" id="emptyState" style="padding: 30px 10px;">
+                        <div class="empty-icon"><i class="fa-solid fa-images"></i></div>
+                        <h4 style="font-size: 1rem; color: var(--text-muted);">لم يتم رفع صور بعد</h4>
+                        <p style="font-size: 0.82rem;">ارفع حتى 5 صور تحتوي على بيانات اتفاقية دليل ان لاستخراجها</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Section 2: Exact Contract Fields Form -->
+        <section class="card-box" style="margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+                <div>
+                    <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-list-check" style="color: var(--primary);"></i>
+                        بيانات العقد المطلوبة (مطابقة لمسميات ملف العقد الرسمي)
+                    </h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                        تستخرج هذه الخانات آلياً من الصور المرفوعة ويمكنك تعديلها وتعبئتها مباشرة.
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-outline" id="btnPreviewMasterContract">
+                        <i class="fa-solid fa-eye"></i> معاينة العقد الورقي
+                    </button>
+                    <button class="btn btn-secondary" id="btnDownloadMasterPdf2" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="fa-solid fa-file-pdf"></i> تنزيل PDF
+                    </button>
+                    <button class="btn btn-primary" id="btnDownloadMasterDocx2">
+                        <i class="fa-solid fa-file-word"></i> تنزيل Word
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exact Fields Grid -->
+            <div class="fields-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px;">
+                
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-hashtag"></i> رقم الإشارة (REF)</label>
+                    <input type="text" class="field-input contract-field" id="field_ref" data-key="ref_no" placeholder="---/26">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-calendar-day"></i> تاريخ تحرير العقد (Date)</label>
+                    <input type="text" class="field-input contract-field" id="field_date" data-key="date" placeholder="YYYY/MM/DD">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-user-tag"></i> بيانات الطرف الثاني السادة/ (اسم المشترك)</label>
+                    <input type="text" class="field-input contract-field" id="field_name" data-key="second_party_name" placeholder="اسم الشركة أو الفرد المشترك...">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-location-dot"></i> العنوان / Located at</label>
+                    <input type="text" class="field-input contract-field" id="field_address" data-key="second_party_address" placeholder="المدينة، الشارع، المبنى...">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-id-card"></i> سجل تجاري رقم (Registration No.)</label>
+                    <input type="text" class="field-input contract-field" id="field_cr" data-key="second_party_cr" placeholder="رقم السجل التجاري / الهوية...">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-building-columns"></i> رقم الآيبان البنكي (IBAN Number)</label>
+                    <input type="text" class="field-input contract-field" id="field_iban" data-key="iban_number" placeholder="SA............................">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-percent"></i> نسبة المبيعات المتفق عليها (البند 3)</label>
+                    <input type="text" class="field-input contract-field" id="field_commission" data-key="commission_percent" placeholder="نسبة المبيعات مثلاً: 10%">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-gavel"></i> قواعد التحكيم (Arbitration Rules)</label>
+                    <input type="text" class="field-input contract-field" id="field_arbitration" data-key="arbitration_rules" placeholder="قواعد التحكيم المتفق عليها...">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label"><i class="fa-solid fa-pen-nib"></i> اسم وتوقيع الطرف الثاني (اسم المخول)</label>
+                    <input type="text" class="field-input contract-field" id="field_signatory" data-key="signatory_name" placeholder="اسم المخول بالتوقيع...">
+                </div>
+
+            </div>
+
+            <!-- Payment Methods Addendum Selection -->
+            <div style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--border-color);">
+                <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-credit-card"></i> طرق الدفع المختارة في الملحق (ADDENDUM TO MARKETING SERVICES)
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                    <label class="checkbox-option">
+                        <input type="checkbox" class="payment-check" data-key="pay_knet" checked>
+                        <span><strong>KNET (كي نت)</strong> - 150 Fils Per Transaction</span>
+                    </label>
+
+                    <label class="checkbox-option">
+                        <input type="checkbox" class="payment-check" data-key="pay_mastercard" checked>
+                        <span><strong>Mastercard (ماستركارد)</strong> - 2.25 %</span>
+                    </label>
+
+                    <label class="checkbox-option">
+                        <input type="checkbox" class="payment-check" data-key="pay_visa" checked>
+                        <span><strong>Visa Card (فيزا كارد)</strong> - 2.25 %</span>
+                    </label>
+
+                    <label class="checkbox-option">
+                        <input type="checkbox" class="payment-check" data-key="pay_applepay" checked>
+                        <span><strong>Apple Pay (أبل باي)</strong> - 40 Fils + 2.25 %</span>
+                    </label>
+
+                    <label class="checkbox-option">
+                        <input type="checkbox" class="payment-check" data-key="pay_googlepay" checked>
+                        <span><strong>Google Pay (جوجل باي)</strong> - 2.25 %</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Custom Field Adder -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 14px;">
+                <button class="btn btn-outline btn-sm" id="btnAddCustomField">
+                    <i class="fa-solid fa-plus"></i> إضافة خيار / حقل مخصص جديد
+                </button>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-outline btn-sm" id="btnDownloadBlankPdfFooter" style="border-color: #ef4444; color: #ef4444;">
+                        <i class="fa-solid fa-file-pdf"></i> نموذج فارغ PDF
+                    </button>
+                    <button class="btn btn-outline btn-sm" id="btnDownloadBlankDocxFooter">
+                        <i class="fa-solid fa-file-word"></i> نموذج فارغ Word
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- Contract Live Preview Modal -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>
+                    <i class="fa-solid fa-eye" style="color:var(--primary);"></i>
+                    معاينة عقد شروط الاتفاقية - شركة دليل ان
+                </h3>
+                <button class="modal-close" id="btnCloseModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Physical Paper Render -->
+                <div class="contract-paper" id="contractPaperRender">
+                    <!-- Content injected via JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="display:flex; gap:8px;">
+                    <button class="btn btn-outline btn-sm" id="btnDownloadBlankPdfFromModal" style="border-color: #ef4444; color: #ef4444;">
+                        <i class="fa-solid fa-file-pdf"></i> فارغ PDF
+                    </button>
+                    <button class="btn btn-outline btn-sm" id="btnDownloadBlankFromModal">
+                        <i class="fa-solid fa-file-word"></i> فارغ Word
+                    </button>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-outline" id="btnCloseModal2">إغلاق</button>
+                    <button class="btn btn-secondary" id="btnDownloadPdfModal" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="fa-solid fa-file-pdf"></i> تحميل PDF
+                    </button>
+                    <button class="btn btn-primary" id="btnDownloadSingleModalDocx">
+                        <i class="fa-solid fa-file-word"></i> تحميل Word
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Main JavaScript App -->
+    <script src="app.js"></script>
+</body>
+</html>
