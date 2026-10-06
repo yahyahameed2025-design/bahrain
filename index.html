@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>عقد اتفاقية شركة دليل ان | Dalil-In Agreement</title>
     <meta name="description" content="نظام استخراج وتوليد عقد شروط الاتفاقية وملحق خدمات التسويق لشركة دليل ان كملف PDF وملف Word (.docx)">
     
@@ -56,7 +56,7 @@
                     </p>
                 </div>
 
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%; max-width: 100%;">
                     <button class="btn btn-secondary" id="btnDownloadMasterPdf" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">
                         <i class="fa-solid fa-file-pdf"></i> تنزيل العقد المكتمل (PDF)
                     </button>
@@ -74,7 +74,7 @@
         </div>
 
         <!-- Section 1: Upload Images -->
-        <section class="hero-section" style="grid-template-columns: 1fr 1fr;">
+        <section class="hero-section">
             
             <!-- Upload Dropzone Card -->
             <div class="card-box">
@@ -88,7 +88,7 @@
                         <i class="fa-solid fa-images"></i>
                     </div>
                     <div class="dropzone-text">
-                        <h3>اسحب الصور هنا أو اضغط لاختيار مستندات العقد</h3>
+                        <h3>اضغط هنا لاختيار الصور أو اسحب المستندات</h3>
                         <p>ارفع الهوية، السجل التجاري، بيانات الآيبان، أو إشعار العقد (حتى 5 صور)</p>
                     </div>
                     <div class="limit-counter" id="imagesCountText">
@@ -118,7 +118,7 @@
 
             <!-- Uploaded Images Gallery Overview -->
             <div class="card-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
                     <div class="card-title" style="margin-bottom: 0;">
                         <i class="fa-solid fa-layer-group"></i>
                         <span>معرض المستندات المرفوعة للعقد</span>
@@ -153,7 +153,7 @@
                     </p>
                 </div>
 
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
                     <button class="btn btn-outline" id="btnPreviewMasterContract">
                         <i class="fa-solid fa-eye"></i> معاينة العقد الورقي
                     </button>
@@ -167,7 +167,7 @@
             </div>
 
             <!-- Exact Fields Grid -->
-            <div class="fields-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px;">
+            <div class="fields-grid">
                 
                 <div class="field-group">
                     <label class="field-label"><i class="fa-solid fa-hashtag"></i> رقم الإشارة (REF)</label>
@@ -256,7 +256,7 @@
                     <i class="fa-solid fa-plus"></i> إضافة خيار / حقل مخصص جديد
                 </button>
 
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%;">
                     <button class="btn btn-outline btn-sm" id="btnDownloadBlankPdfFooter" style="border-color: #ef4444; color: #ef4444;">
                         <i class="fa-solid fa-file-pdf"></i> نموذج فارغ PDF
                     </button>
@@ -287,7 +287,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div style="display:flex; gap:8px;">
+                <div style="display:flex; gap:8px; width: 100%;">
                     <button class="btn btn-outline btn-sm" id="btnDownloadBlankPdfFromModal" style="border-color: #ef4444; color: #ef4444;">
                         <i class="fa-solid fa-file-pdf"></i> فارغ PDF
                     </button>
@@ -296,7 +296,7 @@
                     </button>
                 </div>
 
-                <div style="display:flex; gap:10px;">
+                <div style="display:flex; gap:10px; width: 100%;">
                     <button class="btn btn-outline" id="btnCloseModal2">إغلاق</button>
                     <button class="btn btn-secondary" id="btnDownloadPdfModal" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
                         <i class="fa-solid fa-file-pdf"></i> تحميل PDF
